@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Elemento | BioQuímica</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/elemento.css">
+</head>
+<body class="dark-theme">
+    <header class="element-header">
+    <nav class="top-nav">
+        <a href="tabela.html" class="btn-toggle">← VOLTAR À TABELA</a>
+    </nav>
+    <div class="header-titles">
+        <h1 id="el-nome">Carregando...</h1>
+        <p id="el-categoria">-</p>
+    </div>
+</header>
+
+<main class="element-grid">
+    <section class="visual-section">
+        <div class="atomo-visualizador glass">
+            <div class="atomo-container" id="atomo-estrutura">
+                <div id="nucleo" class="nucleo"></div>
+                <div id="eletrosfera" class="eletrosfera"></div>
+            </div>
+        </div>
+
+        <div class="azne-panel glass">
+            <div class="azne-item">
+                <span class="azne-label">A</span>
+                <span class="azne-value" id="azne-a">--</span>
+                <small>Massa</small>
+            </div>
+            <div class="azne-item">
+                <span class="azne-label">Z</span>
+                <span class="azne-value" id="azne-z">--</span>
+                <small>Prótons</small>
+            </div>
+            <div class="azne-item">
+                <span class="azne-label">N</span>
+                <span class="azne-value" id="azne-n">--</span>
+                <small>Nêutrons</small>
+            </div>
+            <div class="azne-item">
+                <span class="azne-label">E</span>
+                <span class="azne-value" id="azne-e">--</span>
+                <small>Elétrons</small>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="info-card highlight glass">
+            <span class="symbol-large" id="el-simbolo">--</span>
+            <div class="atomic-main">
+                <span class="label">Número Atômico</span>
+                <span class="value" id="el-numero">--</span>
+            </div>
+            <div class="info-detalhada glass">
+            <div class="info-item">
+                    <strong>Distribuição por Níveis:</strong>
+                <p id="dist-niveis">-</p>
+            </div>
+                <div class="info-item">
+                        <strong>Distribuição por Subníveis:</strong>
+                    <p id="dist-subniveis">-</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box glass">
+                <span class="label">Massa Atômica</span>
+                <span class="value" id="el-massa">--</span>
+            </div>
+            <div class="stat-box glass">
+                <span class="label">Estado Físico</span>
+                <span class="value" id="el-estado">--</span>
+            </div>
+        </div>
+
+        <div class="controls">
+        <button id="btn-orbitas" class="btn-toggle">Orbitar: ON</button>
+        </div>
+
+        <div class="edu-card glass">
+            <h3>🧪 Entenda os Números (AZNE)</h3>
+            <p><strong>A</strong> Total de partículas no núcleo (Prótons + Nêutrons).</p>
+            <p><strong>Z:</strong> Partículas positivas, quantidade de Prótons.</p>
+            <p><strong>N:</strong> Partículas neutras, quantidade de Nêutrons. Cálculo: <code>N = A - Z</code>.</p>
+            <p><strong>E:</strong> Partículas negativas que orbitam o núcleo, quantidade de Elétrons.</p>
+        </div>
+    </section>
+</main>
+
+    <script src="js/elementos.js"></script>
+</body>
+</html>

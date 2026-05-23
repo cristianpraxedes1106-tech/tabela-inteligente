@@ -1,0 +1,31 @@
+:root {
+    --bg-dark: #0a0b10;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --primary-glow: #00f2ff;
+    --secondary-glow: #7000ff;
+    --text-main: #e0e0e0;
+    --text-dim: #b0b0b0;
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Efeito de Vidro (Glassmorphism) */
+.glass {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+}

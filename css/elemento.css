@@ -1,0 +1,308 @@
+.element-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Estilização dos Cards de Informação */
+.info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card.highlight {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background: linear-gradient(135deg, rgba(0, 242, 255, 0.1), rgba(112, 0, 255, 0.1));
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--primary-glow);
+}
+
+.symbol-large {
+    font-size: 5rem;
+    font-weight: bold;
+    text-shadow: 0 0 20px var(--primary-glow);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-glow);
+}
+
+.description-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 15px;
+    line-height: 1.6;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 900px) {
+    .element-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Painel AZNE (HUD) --- */
+.azne-panel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.azne-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+}
+
+.azne-item:hover {
+    border-color: var(--primary-glow);
+    background: rgba(0, 242, 255, 0.05);
+    transform: translateY(-3px);
+}
+
+.azne-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--secondary-glow); /* Roxo para as letras */
+    text-shadow: 0 0 10px var(--secondary-glow);
+    margin-bottom: 5px;
+}
+
+.azne-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-glow); /* Ciano para os números */
+    text-shadow: 0 0 15px var(--primary-glow);
+    font-family: 'Courier New', Courier, monospace; /* Fonte mono para cara de dados */
+}
+
+.element-header {
+    display: flex;
+    flex-direction: column; /* Empilha os itens */
+    align-items: center;    /* Centraliza horizontalmente */
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+}
+
+/* Posiciona o botão de voltar no canto enquanto o resto centraliza */
+.btn-back {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header-titles h1 {
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #fff;
+    text-shadow: 0 0 20px var(--primary-glow); /* Brilho neon */
+    margin-bottom: 5px;
+}
+
+#el-categoria {
+    font-size: 1.2rem;
+    color: var(--primary-glow);
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* Cabeçalho Centralizado */
+.element-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    position: relative;
+    text-align: center;
+}
+
+.header-titles h1 {
+    font-size: 3.5rem;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px var(--primary-glow);
+}
+
+/* Layout em Dashboard */
+.element-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Representação do Átomo */
+/* Estilos para o Átomo */
+.atomo-container { position: relative; height: 350px; display: flex; align-items: center; justify-content: center; }
+
+/* O ponto central vermelho e fixo */
+.nucleo-ponto-simples {
+    width: 10px;
+    height: 10px;
+    background: #ff3e3e;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ff3e3e;
+    position: relative;
+    z-index: 10;
+}
+
+/* Linhas das camadas (mais finas e discretas) */
+.camada-linha {
+    position: absolute;
+    border: 1px solid rgba(0, 242, 255, 0.15); /* Ciano bem suave */
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Elétrons menores (6px) para caberem nas camadas próximas */
+.eletron-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #00f2ff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #00f2ff;
+    z-index: 5;
+}
+
+/* Ajuste no container para garantir que nada transborde */
+.atomo-visualizador {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Corta qualquer erro de cálculo */
+    position: relative;
+}
+
+/* Estilo AZNE */
+.azne-panel { display: flex; justify-content: space-around; padding: 20px; margin-top: 20px; text-align: center; }
+.azne-label { font-size: 1.5rem; font-weight: bold; color: #7000ff; display: block; }
+.azne-value { font-size: 1.2rem; color: #fff; }
+
+/* Animação de Rotação */
+@keyframes girar {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Classe que será aplicada às camadas */
+.camada-girando {
+    animation: girar var(--velocidade) linear infinite;
+}
+
+/* Quando o botão de pausa for clicado */
+.pausado {
+    animation-play-state: paused !important;
+}
+
+/* Estilo do Botão */
+.btn-toggle {
+    background: rgba(0, 242, 255, 0.1);
+    border: 1px solid var(--primary-glow);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s;
+}
+
+.btn-toggle.off {
+    border-color: #ff3e3e;
+    color: #ff3e3e;
+}
+
+/* Use as mesmas variáveis de cor da tabela */
+/* Container do topo */
+.top-nav {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start; /* Ou center, se preferires */
+}
+
+/* Estilo do cabeçalho */
+.element-header {
+    text-align: center;
+    margin: 40px 0; /* Dá espaço entre o botão de voltar e o título */
+}
+
+#el-nome {
+    font-size: 4rem; /* Maior e imponente */
+    margin-bottom: 10px;
+    /* O brilho que já configurámos antes */
+}
+
+#el-categoria-topo {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--primary-glow);
+    opacity: 0.8;
+}
+
+/* Área do átomo e o botão de controlo */
+.visualizador-container {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.atomo-controls {
+    margin-top: 10px;
+}
+
+#dist-subniveis sup {
+    font-size: 0.7em;
+    color: var(--primary-glow); /* ou a cor neon que você está usando */
+    vertical-align: super;
+}

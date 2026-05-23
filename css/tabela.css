@@ -1,0 +1,290 @@
+.table-wrapper {
+    padding: 20px;
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.periodic-grid {
+    display: grid;
+    grid-template-columns: repeat(18, 65px); /* 18 colunas */
+    grid-template-rows: repeat(10, 75px);    /* Linhas para tabela + blocos extras */
+    gap: 5px;
+    padding: 20px;
+}
+
+/* Estilo Individual do Elemento */
+.element-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+}
+
+.element-card:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 0 15px currentColor;
+    border-color: #fff;
+}
+
+.el-num { font-size: 0.55rem; align-self: flex-start; }
+.el-sym { font-size: 1.4rem; font-weight: bold; }
+.el-name { font-size: 0.6rem; text-align: center; white-space: nowrap; overflow: hidden; margin-bottom: 10px; }
+/* Estilo ajustado para a Massa Atômica */
+.el-mass {
+    position: absolute;
+    bottom: 3px;         /* Desce um pouquinho para não invadir o centro */
+    left: 4px;           
+    font-size: 0.55rem;  /* Fonte levemente menor para encaixar perfeitamente */
+    color: currentColor; /* 🪄 A mágica: puxa a cor exata da categoria do card! */
+    opacity: 0.8;        /* Suaviza a cor para não roubar a atenção do Símbolo */
+    pointer-events: none;
+}
+
+/* Cores por Categoria (Usando as classes do seu JSON) */
+.metal { border-left: 4px solid #f1c40f; color: #fce38a; }
+.nonmetal { border-left: 4px solid #2ecc71; color: #95e1d3; }
+.noble { border-left: 4px solid #9b59b6; color: #eaffd0; }
+.metalloid { border-left: 4px solid #e67e22; color: #f38181; }
+
+/* Destaque para busca */
+.dimmed { opacity: 0.2; transform: scale(0.9); }
+
+/* Container do Topo */
+.table-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    background: linear-gradient(to bottom, rgba(10, 11, 16, 1), rgba(10, 11, 16, 0.8));
+    border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Link de Voltar Estilizado */
+.btn-back {
+    align-self: flex-start;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.btn-back:hover {
+    color: var(--primary-glow);
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+}
+
+/* Barra de Pesquisa Futurista */
+.search-container input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    border-radius: 30px;
+    padding: 12px 25px;
+    width: 400px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+}
+
+.search-container input:focus {
+    width: 450px;
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Grupo de Botões de Filtro */
+.filters {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-dim);
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Estado Ativo do Filtro */
+.filter-btn.active {
+    background: var(--primary-glow);
+    color: #000;
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 15px var(--primary-glow);
+    font-weight: bold;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 15px;
+}
+
+.filter-group {
+    position: relative;
+}
+
+.filter-label {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filter-options {
+    display: none; /* Escondido por padrão */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    padding: 10px;
+    z-index: 200;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group:hover .filter-options {
+    display: flex; /* Mostra ao passar o mouse */
+}
+
+.filter-options label {
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-options label:hover {
+    color: #00f2ff;
+}
+
+.scrollable-menu {
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-glow) transparent;
+}
+
+/* Garante que o card apagado não receba brilho no hover */
+/* Quando algo NÃO condiz com a pesquisa ou filtro */
+.element-card.dimmed {
+    opacity: 0.1 !important; /* Quase invisível */
+    pointer-events: none;    /* Não deixa clicar */
+    filter: grayscale(100%); /* Tira a cor para dar destaque ao pesquisado */
+    transform: scale(0.9);   /* Dá uma encolhida leve para efeito visual */
+    transition: all 0.3s ease;
+}
+
+/* O que SOBROU da pesquisa (o destaque) */
+.element-card:not(.dimmed) {
+    opacity: 1 !important;
+    z-index: 100;
+    transform: scale(1.1); /* Dá um leve zoom no que você pesquisou */
+}
+
+.legenda-quimica {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 280px;
+    padding: 15px;
+    font-size: 0.8rem;
+    color: white;
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    border-radius: 10px;
+    z-index: 1000;
+    pointer-events: none; /* Deixa clicar na tabela por baixo se precisar */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.legenda-quimica h3 {
+    margin-top: 0;
+    color: #00f2ff;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+    padding-bottom: 5px;
+}
+
+.legenda-item {
+    margin: 8px 0;
+    line-height: 1.3;
+}
+
+.legenda-item strong {
+    color: #00f2ff;
+}
+
+@media (max-width: 768px) {
+    #periodic-table {
+        display: flex;
+        flex-direction: column; /* Transforma em lista */
+        align-items: center;
+    }
+
+    .element-card {
+        width: 90%; /* Ocupa quase a largura toda */
+        margin-bottom: 10px;
+        grid-column: auto !important; /* Ignora o xpos */
+        grid-row: auto !important;    /* Ignora o ypos */
+    }
+
+}
+
+/* ---- CÓDIGO PARA ADAPTAR PARA O CELULAR ---- */
+@media (max-width: 1200px) {
+    .table-wrapper {
+        justify-content: flex-start; /* Alinha a tabela à esquerda para o scroll */
+        overflow-x: auto;            /* Permite arrastar para o lado no celular */
+        -webkit-overflow-scrolling: touch; /* Deixa o deslizar do dedo bem macio */
+        padding-bottom: 20px;
+    }
+    
+    .filter-controls {
+        flex-wrap: wrap;             /* Se faltar espaço para os botões de filtro, eles quebram de linha */
+        gap: 10px;
+    }
+    
+    .legenda-quimica {
+        position: relative;          /* Tira a legenda fixa do cantinho para ela não cobrir a tabela */
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        margin-top: 20px;
+    }
+}

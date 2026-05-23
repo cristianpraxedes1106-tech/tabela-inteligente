@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela Periódica Inteligente</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/tabela.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body class="dark-theme">
+    <header class="table-header">
+    <b> </b>
+    
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="🔍 Buscar elemento (Ex: Ferro, Au, 26)...">
+    </div>
+
+    <div class="filter-controls">
+    <div class="filter-group">
+        <button class="filter-label">Categorias ▼</button>
+        <div class="filter-options glass">
+            <label><input type="checkbox" class="f-check" data-type="categoria" value="metal"> Metais</label>
+            <label><input type="checkbox" class="f-check" data-type="categoria" value="nonmetal"> Ametais</label>
+            <label><input type="checkbox" class="f-check" data-type="categoria" value="noble"> Gases Nobres</label>
+            <label><input type="checkbox" class="f-check" data-type="categoria" value="metalloid"> Semimetais</label>
+        </div>
+    </div>
+
+    <div class="filter-group">
+    <button class="filter-label">Colunas ▼</button>
+    <div class="filter-options glass scrollable-menu">
+        <script>
+            const colOp = document.currentScript.parentElement;
+            for(let i=1; i<=18; i++) {
+                colOp.innerHTML += `<label><input type="checkbox" class="f-check" data-type="xpos" value="${i}"> Coluna ${i}</label>`;
+            }
+        </script>
+    </div>
+</div>
+
+<div class="filter-group">
+    <button class="filter-label">Linhas ▼</button>
+    <div class="filter-options glass">
+        <script>
+            const linOp = document.currentScript.parentElement;
+            for(let i=1; i<=7; i++) {
+                linOp.innerHTML += `<label><input type="checkbox" class="f-check" data-type="ypos" value="${i}"> Linha ${i}</label>`;
+            }
+        </script>
+    </div>
+</div>
+
+    <div class="filter-group">
+        <button class="filter-label">Estado Físico ▼</button>
+        <div class="filter-options glass">
+            <label><input type="checkbox" class="f-check" data-type="estado" value="solid"> Sólido</label>
+            <label><input type="checkbox" class="f-check" data-type="estado" value="liquid"> Líquido</label>
+            <label><input type="checkbox" class="f-check" data-type="estado" value="gas"> Gasoso</label>
+        </div>
+    </div>
+</div>
+
+<div class="legenda-quimica glass">
+    <h3>📌 Guia Rápido: Colunas</h3>
+    <div class="legenda-item">
+        <strong>Coluna 1 (1A):</strong> Metais Alcalinos. Reativos, 1 elétron na valência.
+    </div>
+    <div class="legenda-item">
+        <strong>Coluna 2 (2A):</strong> Metais Alcalinoterrosos. 2 elétrons na valência.
+    </div>
+    <div class="legenda-item">
+        <strong>Coluna 16 (6A):</strong> Calcogênios. Inclui o Oxigênio.
+    </div>
+    <div class="legenda-item">
+        <strong>Coluna 17 (7A):</strong> Halogênios. Muito reativos, 7 elétrons na valência.
+    </div>
+    <div class="legenda-item">
+        <strong>Coluna 18 (8A):</strong> Gases Nobres. Estáveis (camada completa).
+    </div>
+</div>
+
+
+</header>
+
+    <main class="table-wrapper">
+        <div id="periodic-table" class="periodic-grid">
+            </div>
+    </main>
+
+    <script src="js/elementos.js"></script>
+    
+    <script src="js/tabela.js"></script>
+</body>
+</body>
+</html>
