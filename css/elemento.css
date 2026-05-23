@@ -65,38 +65,8 @@
 }
 
 /* Responsividade para telas pequenas */
-/* --- RESPONSIVIDADE DA PÁGINA DO ELEMENTO --- */
-@media (max-width: 768px) {
-    /* Transforma as duas colunas do computador em uma única coluna no celular */
-    .element-grid {
-        grid-template-columns: 1fr !important;
-        gap: 20px;
-        padding: 15px;
-        margin: 10px auto;
-    }
-
-    /* Diminui o título gigante para não quebrar linha bizarramente */
-    #el-nome {
-        font-size: 2.8rem;
-    }
-
-    /* Ajusta o card principal de destaque */
-    .info-card.highlight {
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-        gap: 15px;
-    }
-
-    .symbol-large {
-        font-size: 4rem;
-    }
-
-    /* Garante que o container do átomo se ajuste à largura da tela */
-    .atomo-visualizador {
-        min-height: 300px;
-        padding: 10px;
-    }
+@media (max-width: 900px) {
+    .element-grid { grid-template-columns: 1fr; }
 }
 
 /* --- Painel AZNE (HUD) --- */
