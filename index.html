@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0; url=tabela.html">
+    <title>Carregando Tabela Periódica...</title>
+    <style>
+        /* Seus estilos globais importados */
+        :root {
+            --bg-dark: #0a0b10;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --primary-glow: #00f2ff;
+            --secondary-glow: #7000ff;
+            --text-main: #e0e0e0;
+            --text-dim: #b0b0b0;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Efeito de Vidro (Glassmorphism) */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+
+        /* Estilização do Card de Redirecionamento */
+        .redirect-card {
+            padding: 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+                        0 0 50px rgba(112, 0, 255, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--text-dim);
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: var(--primary-glow);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border-bottom: 1px dashed var(--primary-glow);
+        }
+
+        a:hover {
+            color: #fff;
+            border-bottom-style: solid;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* Spinner de carregamento combinando com o neon */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--card-bg);
+            border-bottom-color: var(--primary-glow);
+            border-top-color: var(--secondary-glow);
+            border-radius: 50%;
+            display: inline-block;
+            margin-bottom: 25px;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10deg); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass redirect-card">
+        <div class="loader"></div>
+        <h1>Conectando ao Laboratório</h1>
+        <p>Estamos preparando a sua Tabela Periódica Inteligente.</p>
+        <p style="font-size: 0.85rem;">
+            Se não for redirecionado em instantes, <a href="tabela.html">clique aqui para entrar</a>.
+        </p>
+    </div>
+
+</body>
+</html>
