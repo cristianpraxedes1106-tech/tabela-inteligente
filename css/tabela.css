@@ -250,41 +250,36 @@
     color: #00f2ff;
 }
 
-@media (max-width: 768px) {
-    #periodic-table {
-        display: flex;
-        flex-direction: column; /* Transforma em lista */
-        align-items: center;
+/* --- RESPONSIVIDADE DA TABELA --- */
+@media (max-width: 900px) {
+    /* Mantém a estrutura de tabela, mas reduz o tamanho dos cards para caber melhor */
+    .periodic-grid {
+        grid-template-columns: repeat(18, 50px) !important;
+        grid-template-rows: repeat(10, 60px) !important;
+        gap: 4px;
+        padding: 10px;
     }
 
     .element-card {
-        width: 90%; /* Ocupa quase a largura toda */
-        margin-bottom: 10px;
-        grid-column: auto !important; /* Ignora o xpos */
-        grid-row: auto !important;    /* Ignora o ypos */
+        grid-column: auto; /* Não reseta as posições fixas do JS */
+        padding: 2px;
     }
 
-}
+    /* Esconde o nome e a massa no celular para não esmagar o card */
+    .element-card .el-name,
+    .element-card .el-mass {
+        display: none !important;
+    }
 
-/* ---- CÓDIGO PARA ADAPTAR PARA O CELULAR ---- */
-@media (max-width: 1200px) {
-    .table-wrapper {
-        justify-content: flex-start; /* Alinha a tabela à esquerda para o scroll */
-        overflow-x: auto;            /* Permite arrastar para o lado no celular */
-        -webkit-overflow-scrolling: touch; /* Deixa o deslizar do dedo bem macio */
-        padding-bottom: 20px;
+    /* Deixa o número e o símbolo centralizados e com tamanho bom */
+    .element-card .el-num {
+        font-size: 0.65rem;
+        top: 4px;
+        left: 4px;
     }
-    
-    .filter-controls {
-        flex-wrap: wrap;             /* Se faltar espaço para os botões de filtro, eles quebram de linha */
-        gap: 10px;
-    }
-    
-    .legenda-quimica {
-        position: relative;          /* Tira a legenda fixa do cantinho para ela não cobrir a tabela */
-        bottom: 0;
-        right: 0;
-        width: 100%;
-        margin-top: 20px;
+
+    .element-card .el-sym {
+        font-size: 1.2rem;
+        font-weight: bold;
     }
 }
