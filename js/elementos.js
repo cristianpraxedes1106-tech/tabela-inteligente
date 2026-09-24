@@ -250,7 +250,7 @@ function obterConfigPorGasNobre(simbolo) {
 function lerConfiguracaoEspecial(texto) {
     const config = {};
 
-    const tokens = texto.match(/\\[[A-Z][a-z]?\\]|\\d+[spdf]\\d+/g) || [];
+    const tokens = texto.match(/\[[A-Z][a-z]?\]|\d+[spdf]\d+/g) || [];
 
     for (const token of tokens) {
         if (token.startsWith("[")) {
@@ -259,7 +259,7 @@ function lerConfiguracaoEspecial(texto) {
             continue;
         }
 
-        const match = token.match(/^(\\d+)([spdf])(\\d+)$/);
+        const match = token.match(/^(\d+)([spdf])(\d+)$/);
         if (!match) continue;
 
         const subnivel = `${match[1]}${match[2]}`;
