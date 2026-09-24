@@ -16,14 +16,14 @@ const elementosLista = [
     { numero: 15, simbolo: 'P', nome: 'Fósforo', categoria: 'nonmetal', xpos: 15, ypos: 3, massa: 30.97, estado: 'solid' },
 { numero: 16, simbolo: 'S', nome: 'Enxofre', categoria: 'nonmetal', xpos: 16, ypos: 3, massa: 32.06, estado: 'solid' },
     { numero: 17, simbolo: 'Cl', nome: 'Cloro', categoria: 'nonmetal', xpos: 17, ypos: 3, massa: 35.45, estado: 'gas' },
-    { numero: 18, simbolo: 'Ar', nome: 'Argónio', categoria: 'noble', xpos: 18, ypos: 3, massa: 39.94, estado: 'gas' },
+    { numero: 18, simbolo: 'Ar', nome: 'Argônio', categoria: 'noble', xpos: 18, ypos: 3, massa: 39.94, estado: 'gas' },
     { numero: 19, simbolo: 'K', nome: 'Potássio', categoria: 'metal', xpos: 1, ypos: 4, massa: 39.10, estado: 'solid' },
     { numero: 20, simbolo: 'Ca', nome: 'Cálcio', categoria: 'metal', xpos: 2, ypos: 4, massa: 40.08, estado: 'solid' },
     { numero: 21, simbolo: 'Sc', nome: 'Escândio', categoria: 'metal', xpos: 3, ypos: 4, massa: 44.95, estado: 'solid' },
     { numero: 22, simbolo: 'Ti', nome: 'Titânio', categoria: 'metal', xpos: 4, ypos: 4, massa: 47.86, estado: 'solid' },
     { numero: 23, simbolo: 'V', nome: 'Vanádio', categoria: 'metal', xpos: 5, ypos: 4, massa: 50.94, estado: 'solid' },
-    { numero: 24, simbolo: 'Cr', nome: 'Crómio', categoria: 'metal', xpos: 6, ypos: 4, massa: 51.99, estado: 'solid' },
-    { numero: 25, simbolo: 'Mn', nome: 'Manganésio', categoria: 'metal', xpos: 7, ypos: 4, massa: 54.93, estado: 'solid' },
+    { numero: 24, simbolo: 'Cr', nome: 'Cromo', categoria: 'metal', xpos: 6, ypos: 4, massa: 51.99, estado: 'solid' },
+    { numero: 25, simbolo: 'Mn', nome: 'Manganês', categoria: 'metal', xpos: 7, ypos: 4, massa: 54.93, estado: 'solid' },
     { numero: 26, simbolo: 'Fe', nome: 'Ferro', categoria: 'metal', xpos: 8, ypos: 4, massa: 55.84, estado: 'solid' },
     { numero: 27, simbolo: 'Co', nome: 'Cobalto', categoria: 'metal', xpos: 9, ypos: 4, massa: 58.93, estado: 'solid' },
     { numero: 28, simbolo: 'Ni', nome: 'Níquel', categoria: 'metal', xpos: 10, ypos: 4, massa: 58.69, estado: 'solid' },
@@ -111,7 +111,7 @@ const elementosLista = [
     { numero: 110, simbolo: 'Ds', nome: 'Darmstádio', categoria: 'metal', xpos: 10, ypos: 7, massa: 281, estado: 'solid' },
     { numero: 111, simbolo: 'Rg', nome: 'Roentgênio', categoria: 'metal', xpos: 11, ypos: 7, massa: 280, estado: 'solid' },
     { numero: 112, simbolo: 'Cn', nome: 'Copernício', categoria: 'metal', xpos: 12, ypos: 7, massa: 285, estado: 'solid' },
-    { numero: 113, simbolo: 'Nh', nome: 'Nipônio', categoria: 'metal', xpos: 13, ypos: 7, massa: 284, estado: 'solid' },
+    { numero: 113, simbolo: 'Nh', nome: 'Nihônio', categoria: 'metal', xpos: 13, ypos: 7, massa: 284, estado: 'solid' },
     { numero: 114, simbolo: 'Fl', nome: 'Fleróvio', categoria: 'metal', xpos: 14, ypos: 7, massa: 289, estado: 'solid' },
     { numero: 115, simbolo: 'Mc', nome: 'Moscóvio', categoria: 'metal', xpos: 15, ypos: 7, massa: 288, estado: 'solid' },
     { numero: 116, simbolo: 'Lv', nome: 'Livermório', categoria: 'metal', xpos: 16, ypos: 7, massa: 293, estado: 'solid' },
@@ -119,174 +119,316 @@ const elementosLista = [
     { numero: 118, simbolo: 'Og', nome: 'Oganessônio', categoria: 'noble', xpos: 18, ypos: 7, massa: 294, estado: 'gas' }
 ];
 
-// --- COLA ISTO NO FINAL DO TEU ELEMENTOS.JS ---
+/*
+ * ============================================================
+ * DADOS ELETRÔNICOS
+ * ============================================================
+ *
+ * A distribuição por CAMADAS é calculada a partir dos
+ * subníveis da configuração eletrônica, usando o número
+ * principal do subnível:
+ *
+ *   3d⁵ -> camada n=3
+ *   4s² -> camada n=4
+ *
+ * Portanto Mn = 2, 8, 13, 2.
+ *
+ * Fontes dos dados:
+ * - NIST: configurações eletrônicas de estado fundamental
+ *   para os elementos e casos especiais.
+ * - PubChem: tabela periódica com configurações eletrônicas
+ *   para os 118 elementos.
+ * - Para Lr (103), usamos a configuração atual do NIST ASD:
+ *   [Rn] 5f¹⁴ 7s² 7p¹.
+ *
+ * Observação: para elementos superpesados, algumas propriedades
+ * eletrônicas são previstas/esperadas, não medidas diretamente.
+ * ============================================================
+ */
 
-let orbitando = true; // Define como ligado por padrão
+const ORDEM_SUBNIVEIS = [
+    { s: "1s", m: 2 },
+    { s: "2s", m: 2 },
+    { s: "2p", m: 6 },
+    { s: "3s", m: 2 },
+    { s: "3p", m: 6 },
+    { s: "4s", m: 2 },
+    { s: "3d", m: 10 },
+    { s: "4p", m: 6 },
+    { s: "5s", m: 2 },
+    { s: "4d", m: 10 },
+    { s: "5p", m: 6 },
+    { s: "6s", m: 2 },
+    { s: "4f", m: 14 },
+    { s: "5d", m: 10 },
+    { s: "6p", m: 6 },
+    { s: "7s", m: 2 },
+    { s: "5f", m: 14 },
+    { s: "6d", m: 10 },
+    { s: "7p", m: 6 }
+];
 
-function obterSubniveis(n) {
-    const ordem = [
-        { s: "1s", m: 2 }, { s: "2s", m: 2 }, { s: "2p", m: 6 },
-        { s: "3s", m: 2 }, { s: "3p", m: 6 }, { s: "4s", m: 2 },
-        { s: "3d", m: 10 }, { s: "4p", m: 6 }, { s: "5s", m: 2 },
-        { s: "4d", m: 10 }, { s: "5p", m: 6 }, { s: "6s", m: 2 },
-        { s: "4f", m: 14 }, { s: "5d", m: 10 }, { s: "6p", m: 6 },
-        { s: "7s", m: 2 }, { s: "5f", m: 14 }, { s: "6d", m: 10 }, { s: "7p", m: 6 }
-    ];
+const GAS_NOBRES = {
+    He: { "1s": 2 },
+    Ne: { "1s": 2, "2s": 2, "2p": 6 },
+    Ar: { "1s": 2, "2s": 2, "2p": 6, "3s": 2, "3p": 6 },
+    Kr: { "1s": 2, "2s": 2, "2p": 6, "3s": 2, "3p": 6, "4s": 2, "4p": 6, "3d": 10 },
+    Xe: { "1s": 2, "2s": 2, "2p": 6, "3s": 2, "3p": 6, "4s": 2, "4p": 6, "3d": 10, "5s": 2, "5p": 6, "4d": 10 },
+    Rn: { "1s": 2, "2s": 2, "2p": 6, "3s": 2, "3p": 6, "4s": 2, "4p": 6, "3d": 10, "5s": 2, "5p": 6, "4d": 10, "6s": 2, "6p": 6, "4f": 14, "5d": 10 },
+};
 
-    let resultado = [];
-    let restante = n;
+const CONFIGURACOES_ESPECIAIS = {
+    // Período 4
+    24: "[Ar] 3d5 4s1",   // Cr
+    29: "[Ar] 3d10 4s1",  // Cu
 
-    for (let nivel of ordem) {
+    // Período 5
+    41: "[Kr] 4d4 5s1",   // Nb
+    42: "[Kr] 4d5 5s1",   // Mo
+    44: "[Kr] 4d7 5s1",   // Ru
+    45: "[Kr] 4d8 5s1",   // Rh
+    46: "[Kr] 4d10",      // Pd
+
+    // Período 6
+    57: "[Xe] 5d1 6s2",          // La
+    58: "[Xe] 4f1 5d1 6s2",      // Ce
+    64: "[Xe] 4f7 5d1 6s2",      // Gd
+    71: "[Xe] 4f14 5d1 6s2",     // Lu
+    78: "[Xe] 4f14 5d9 6s1",     // Pt
+    79: "[Xe] 4f14 5d10 6s1",    // Au
+
+    // Período 7
+    89: "[Rn] 6d1 7s2",          // Ac
+    90: "[Rn] 6d2 7s2",          // Th
+    91: "[Rn] 5f2 6d1 7s2",      // Pa
+    92: "[Rn] 5f3 6d1 7s2",      // U
+    93: "[Rn] 5f4 6d1 7s2",      // Np
+    96: "[Rn] 5f7 6d1 7s2",      // Cm
+    103: "[Rn] 5f14 7s2 7p1",    // Lr — NIST ASD
+    111: "[Rn] 5f14 6d10 7s1"    // Rg
+};
+
+const SIMBOLOS_GAS_NOBRE = {
+    2: "He",
+    10: "Ne",
+    18: "Ar",
+    36: "Kr",
+    54: "Xe",
+    86: "Rn"
+};
+
+function criarConfiguracaoAufbau(numeroEletrons) {
+    const config = {};
+    let restante = numeroEletrons;
+
+    for (const nivel of ORDEM_SUBNIVEIS) {
         if (restante <= 0) break;
-        let gasto = Math.min(restante, nivel.m);
-        resultado.push(`${nivel.s}<sup>${gasto}</sup>`);
-        restante -= gasto;
+
+        const ocupacao = Math.min(restante, nivel.m);
+        config[nivel.s] = ocupacao;
+        restante -= ocupacao;
     }
-    return resultado.join(" ");
+
+    return config;
 }
 
+function clonarConfig(config) {
+    return { ...config };
+}
 
-// ... (mantenha sua lista de elementos e a função obterSubniveis que você já tem no topo)
+function adicionarConfig(destino, origem) {
+    for (const [subnivel, eletrons] of Object.entries(origem)) {
+        destino[subnivel] = (destino[subnivel] || 0) + eletrons;
+    }
+}
+
+function obterConfigPorGasNobre(simbolo) {
+    const config = GAS_NOBRES[simbolo];
+    return config ? clonarConfig(config) : {};
+}
+
+function lerConfiguracaoEspecial(texto) {
+    const config = {};
+
+    const tokens = texto.match(/\\[[A-Z][a-z]?\\]|\\d+[spdf]\\d+/g) || [];
+
+    for (const token of tokens) {
+        if (token.startsWith("[")) {
+            const simbolo = token.slice(1, -1);
+            adicionarConfig(config, obterConfigPorGasNobre(simbolo));
+            continue;
+        }
+
+        const match = token.match(/^(\\d+)([spdf])(\\d+)$/);
+        if (!match) continue;
+
+        const subnivel = `${match[1]}${match[2]}`;
+        config[subnivel] = Number(match[3]);
+    }
+
+    return config;
+}
+
+function obterConfiguracaoEletronica(numero) {
+    if (!Number.isInteger(numero) || numero < 1 || numero > 118) {
+        return {};
+    }
+
+    if (CONFIGURACOES_ESPECIAIS[numero]) {
+        return lerConfiguracaoEspecial(CONFIGURACOES_ESPECIAIS[numero]);
+    }
+
+    return criarConfiguracaoAufbau(numero);
+}
+
+function obterSubniveis(n) {
+    const config = obterConfiguracaoEletronica(n);
+
+    return ORDEM_SUBNIVEIS
+        .filter(nivel => config[nivel.s] > 0)
+        .map(nivel => `${nivel.s}<sup>${config[nivel.s]}</sup>`)
+        .join(" ");
+}
+
+function calcularDistribuicaoPadrao(n) {
+    const config = obterConfiguracaoEletronica(n);
+    const camadas = [0, 0, 0, 0, 0, 0, 0];
+
+    for (const [subnivel, eletrons] of Object.entries(config)) {
+        const camada = Number.parseInt(subnivel, 10);
+
+        if (camada >= 1 && camada <= 7) {
+            camadas[camada - 1] += eletrons;
+        }
+    }
+
+    return camadas.filter(qtd => qtd > 0);
+}
+
+function obterDistribuicaoPorCamadas(n) {
+    return calcularDistribuicaoPadrao(n);
+}
 
 function carregarPaginaElemento() {
     const urlParams = new URLSearchParams(window.location.search);
-    const id = parseInt(urlParams.get('id'));
-    
+    const id = Number.parseInt(urlParams.get("id"), 10);
+
     const el = elementosLista.find(item => item.numero === id);
 
-    if (el) {
-        // --- LOGICA EXISTENTE ---
-        const tradEstado = { 'gas': 'Gasoso', 'solid': 'Sólido', 'liquid': 'Líquido', 'synthetic': 'Sintético' };
-        const tradCat = { 'nonmetal': 'Ametal', 'noble': 'Gás Nobre', 'metal': 'Metal', 'metalloid': 'Semimetal' };
+    if (!el) return;
 
-        if(document.getElementById('el-nome')) document.getElementById('el-nome').innerText = el.nome;
-        if(document.getElementById('el-simbolo')) document.getElementById('el-simbolo').innerText = el.simbolo;
-        if(document.getElementById('el-numero')) document.getElementById('el-numero').innerText = el.numero;
-        if(document.getElementById('el-massa')) document.getElementById('el-massa').innerText = el.massa;
-        if(document.getElementById('el-categoria')) document.getElementById('el-categoria').innerText = tradCat[el.categoria] || el.categoria;
-        if(document.getElementById('el-estado')) document.getElementById('el-estado').innerText = tradEstado[el.estado] || el.estado;
+    const tradEstado = {
+        gas: "Gasoso",
+        solid: "Sólido",
+        liquid: "Líquido",
+        synthetic: "Sintético"
+    };
 
-        // --- NOVA LOGICA DE DISTRIBUIÇÃO ---
-        
-        // 1. Níveis (K, L, M, N, O, P, Q)
-        const letras = ['K', 'L', 'M', 'N', 'O', 'P', 'Q'];
-        // Usamos a função de cálculo que você já tem no seu JS
-        const distCalculada = calcularDistribuicaoPadrao(el.numero); 
-        const textoNiveis = distCalculada.map((qtd, i) => `${letras[i]}: ${qtd}`).join(" | ");
-        
-        if(document.getElementById('dist-niveis')) {
-            document.getElementById('dist-niveis').innerText = textoNiveis;
-        }
+    const tradCat = {
+        nonmetal: "Ametal",
+        noble: "Gás Nobre",
+        metal: "Metal",
+        metalloid: "Semimetal"
+    };
 
-        // 2. Subníveis (1s2, 2s2...) usando a função obterSubniveis
-        if(document.getElementById('dist-subniveis')) {
-            document.getElementById('dist-subniveis').innerHTML = obterSubniveis(el.numero);
-        }
+    const setText = (idElemento, valor) => {
+        const elemento = document.getElementById(idElemento);
+        if (elemento) elemento.innerText = valor;
+    };
 
-        // --- CÁLCULOS AZNE E ÁTOMO ---
-        const A = Math.round(el.massa);
-        const Z = el.numero;
-        if(document.getElementById('azne-a')) document.getElementById('azne-a').innerText = A;
-        if(document.getElementById('azne-z')) document.getElementById('azne-z').innerText = Z;
-        if(document.getElementById('azne-n')) document.getElementById('azne-n').innerText = A - Z;
-        if(document.getElementById('azne-e')) document.getElementById('azne-e').innerText = Z;
+    setText("el-nome", el.nome);
+    setText("el-simbolo", el.simbolo);
+    setText("el-numero", el.numero);
+    setText("el-massa", el.massa);
+    setText("el-categoria", tradCat[el.categoria] || el.categoria);
+    setText("el-estado", tradEstado[el.estado] || el.estado);
 
-        desenharAtomo(el);
+    const letras = ["K", "L", "M", "N", "O", "P", "Q"];
+    const distribuicao = obterDistribuicaoPorCamadas(el.numero);
+
+    setText(
+        "dist-niveis",
+        distribuicao.map((qtd, i) => `${letras[i]}: ${qtd}`).join(" | ")
+    );
+
+    const subniveis = document.getElementById("dist-subniveis");
+    if (subniveis) {
+        subniveis.innerHTML = obterSubniveis(el.numero);
     }
+
+    const A = Math.round(el.massa);
+    const Z = el.numero;
+
+    setText("azne-a", A);
+    setText("azne-z", Z);
+    setText("azne-n", A - Z);
+    setText("azne-e", Z);
+
+    desenharAtomo(el);
 }
 
 function desenharAtomo(el) {
-    const eletrosfera = document.getElementById('eletrosfera');
-    const nucleo = document.getElementById('nucleo');
+    const eletrosfera = document.getElementById("eletrosfera");
+    const nucleo = document.getElementById("nucleo");
+
     if (!eletrosfera || !nucleo) return;
 
-    eletrosfera.innerHTML = '';
-    nucleo.innerHTML = '';
+    eletrosfera.innerHTML = "";
+    nucleo.innerHTML = "";
 
-    // 1. NÚCLEO: Apenas o ponto central estético
-    const pontoCentral = document.createElement('div');
-    pontoCentral.className = 'nucleo-ponto-simples';
+    const pontoCentral = document.createElement("div");
+    pontoCentral.className = "nucleo-ponto-simples";
     nucleo.appendChild(pontoCentral);
 
-    // 2. CAMADAS COMPACTAS
-    // Pegamos a distribuição real ou calculamos o padrão
-    let distribuicao = el.distribuicao || calcularDistribuicaoPadrao(el.numero);
+    const distribuicao = calcularDistribuicaoPadrao(el.numero);
 
     distribuicao.forEach((qtd, idx) => {
-        const camada = document.createElement('div');
-        // Adicionamos a classe de animação
-        camada.className = `camada-linha camada-girando ${orbitando ? '' : 'pausado'}`;
-        
-        // Cada camada gira em uma velocidade diferente (as de dentro mais rápido)
-        const velocidade = 4 + (idx * 2); 
-        camada.style.setProperty('--velocidade', `${velocidade}s`);
-        
-        // Reduzi o raio inicial (35) e o multiplicador de distância (18)
-        // Isso faz com que as 7 camadas fiquem dentro de um raio de ~160px (total 320px de diâmetro)
-        const raio = 35 + (idx * 18); 
+        const camada = document.createElement("div");
+
+        camada.className =
+            `camada-linha camada-girando ${orbitando ? "" : "pausado"}`;
+
+        const velocidade = 4 + idx * 2;
+        const raio = 35 + idx * 18;
         const diametro = raio * 2;
-        
+
+        camada.style.setProperty("--velocidade", `${velocidade}s`);
         camada.style.width = `${diametro}px`;
         camada.style.height = `${diametro}px`;
         camada.style.left = `calc(50% - ${raio}px)`;
         camada.style.top = `calc(50% - ${raio}px)`;
-        
+
         eletrosfera.appendChild(camada);
 
-        // 3. ELÉTRONS NAS LINHAS
         for (let j = 0; j < qtd; j++) {
-            const eletron = document.createElement('div');
-            eletron.className = 'eletron-dot';
-            
+            const eletron = document.createElement("div");
+            eletron.className = "eletron-dot";
+
             const angulo = (j * Math.PI * 2) / qtd;
             const x = Math.cos(angulo) * raio;
             const y = Math.sin(angulo) * raio;
-            
-            eletron.style.left = `calc(50% + ${x}px - 3px)`; // -3px porque o elétron ficou menor (6px)
-            eletron.style.top = `calc(50% + ${y}px - 3px)`;
-            
-            camada.appendChild(eletron);
 
-            
+            eletron.style.left = `calc(50% + ${x}px - 3px)`;
+            eletron.style.top = `calc(50% + ${y}px - 3px)`;
+
+            camada.appendChild(eletron);
         }
     });
 }
 
-// Mantemos a função auxiliar para elementos sem distribuição preenchida
-function calcularDistribuicaoPadrao(n) {
-    const padrao = [2, 8, 18, 32, 32, 18, 8];
-    let res = [];
-    let restante = n;
-    for (let cap of padrao) {
-        if (restante > cap) {
-            res.push(cap);
-            restante -= cap;
-        } else {
-            res.push(restante);
-            break;
-        }
-    }
-    return res;
-}
-
-// EVENTO FINAL DO ARQUIVO
-document.addEventListener('DOMContentLoaded', () => {
-    // Carrega os dados do elemento
+document.addEventListener("DOMContentLoaded", () => {
     carregarPaginaElemento();
 
-    // LOGICA DO BOTÃO TOGGLE
-    const btnOrbitas = document.getElementById('btn-orbitas');
-    if (btnOrbitas) {
-        btnOrbitas.addEventListener('click', function() {
-            orbitando = !orbitando;
-            this.innerText = `Orbitar: ${orbitando ? 'ON' : 'OFF'}`;
-            this.classList.toggle('off');
+    const btnOrbitas = document.getElementById("btn-orbitas");
 
-            // Aplica ou remove a pausa em todas as camadas na tela
-            const camadas = document.querySelectorAll('.camada-linha');
-            camadas.forEach(c => {
-                if (orbitando) c.classList.remove('pausado');
-                else c.classList.add('pausado');
+    if (btnOrbitas) {
+        btnOrbitas.addEventListener("click", function () {
+            orbitando = !orbitando;
+            this.innerText = `Orbitar: ${orbitando ? "ON" : "OFF"}`;
+            this.classList.toggle("off");
+
+            document.querySelectorAll(".camada-linha").forEach(camada => {
+                camada.classList.toggle("pausado", !orbitando);
             });
         });
     }
